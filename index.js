@@ -9,7 +9,7 @@ const {
 
 const app = express();
 const upload = multer({ storage: multer.memoryStorage() });
-const MODEL_NAME = "gemini-1.5-pro";
+const MODEL_NAME = "gemini-1.5-flash";
 const API_KEY = process.env.GOOGLE_API_KEY;
 
 app.set("view engine", "ejs");
@@ -83,14 +83,17 @@ const getCarInfo = async (imageBuffer) => {
 
     const parts = [
         {
-            text: `Accurately identify the vehicle model, manufacturer, color, and year with your analysis. Please respond in the following JSON format:
+            text: `Accurately identify the vehicle model, manufacturer, color, year, engine, drivetrain and price range in Australian Dollars, with your analysis. If there is no data in make it an empty string. The engine property should be the displacement followed by either i, v or h depending on configuration.The type of drivetrain can be one of FWD,RWD,AWD,4x4. Please respond in the following JSON format:
 
       {
         "vehicle": {
           "manufacturer": "string",
           "model": "string",
           "color": "string",
-          "year": "string"
+          "year": "string",
+          "price": "string",
+           "engine": "string",
+           "drivetrain":"string"
         }
       }
 
@@ -104,22 +107,17 @@ const getCarInfo = async (imageBuffer) => {
       For a successful identification:
       {
         "vehicle": {
-          "manufacturer": "Toyota",
-          "model": "Camry",
-          "color": "White",
-          "year": "2020"
+          "manufacturer": "Honda",
+          "model": "CR-V",
+          "color": "Silver",
+          "year": "2004",
+          "price": "$2,000-$6,000",
+           "engine": "2.4L i4",
+           "drivetrain":"AWD"
         }
       }
 
-      If the vehicle's year cannot be exactly determined, provide the range in the format "YYYY-YYYY" (e.g., "2002-2006"). Example:
-      {
-        "vehicle": {
-          "manufacturer": "Honda",
-          "model": "Civic",
-          "color": "Black",
-          "year": "2002-2006"
-        }
-      }`,
+      If the vehicle's year cannot be exactly determined, provide the range in the format "YYYY-YYYY" (e.g., "2002-2006").`,
         },
         {
             inlineData: {

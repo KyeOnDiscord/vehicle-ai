@@ -1,25 +1,3 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const modal = document.getElementById('donationModal');
-    const closeButton = document.getElementById('closeButton');
-    
-    modal.style.display = 'block';
-    
-    let timeLeft = 5;
-    const timer = setInterval(() => {
-        if (timeLeft <= 0) {
-            clearInterval(timer);
-            closeButton.classList.add('active');
-            closeButton.textContent = 'Close';
-            closeButton.onclick = function() {
-                modal.style.display = 'none';
-            };
-        } else {
-            closeButton.textContent = `Wait ${timeLeft}s`;
-            timeLeft--;
-        }
-    }, 1000);
-});
-
 const fileInput = document.getElementById("fileInput");
 const uploadButton = document.getElementById("uploadButton");
 const runButton = document.getElementById("runButton");
@@ -31,6 +9,7 @@ const dropText = document.getElementById("dropText");
 const carImage = document.getElementById("carImage");
 const carMake = document.getElementById("carMake");
 const carModel = document.getElementById("carModel");
+const carPrice = document.getElementById("carPrice");
 const carColor = document.getElementById("carColor");
 const carYear = document.getElementById("carYear");
 const carMakeLogo = document.getElementById("carMakeLogo");
@@ -98,6 +77,7 @@ runButton.addEventListener("click", function (event) {
                     const make = data.carInfo.vehicle.manufacturer;
                     carMake.textContent = make;
                     carModel.textContent = data.carInfo.vehicle.model;
+                    carPrice.textContent = data.carInfo.vehicle.price;
                     carColor.textContent = data.carInfo.vehicle.color;
                     carYear.textContent = data.carInfo.vehicle.year;
 
