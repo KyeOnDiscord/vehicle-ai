@@ -108,7 +108,6 @@ The project relies on the following npm packages:
 - `ejs`: ^3.1.10
 - `express`: ^4.19.2
 - `multer`: ^1.4.5-lts.1
-- `uuid`: ^9.0.1
 
 ## Contributing
 
